@@ -1,16 +1,30 @@
-# my_finance
+# Aura Finance 💰
 
-A new Flutter project.
+A minimalist and premium finance tracking application built with Flutter.
 
-## Getting Started
+## 🚀 Download APK
 
-This project is a starting point for a Flutter application.
+You can download the latest version of Aura Finance for Android here:
 
-A few resources to get you started if this is your first Flutter project:
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://drive.google.com/file/d/1XjrSKpa4Vk7zBbtBaoDBwNiCKL21gJ25/view?usp=drive_link)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ✨ Features
+- **Premium Design**: Modern, minimalist interface with a "Bento Grid" layout.
+- **Fast & Fluid**: Optimized for smooth performance on mobile devices.
+- **Finance Tracking**: Keep track of your expenses and income with ease.
+
+## 🛠️ Development
+
+### Prerequisites
+- Flutter SDK
+- Android Studio / Xcode
+
+### Getting Started
+1. Clone the repository.
+2. Run `flutter pub get` to install dependencies.
+3. Run `flutter run` to start the app in debug mode.
+
+---
+Built with ❤️ by Antigravity
