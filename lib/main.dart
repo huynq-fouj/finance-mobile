@@ -54,7 +54,6 @@ class WebViewPage extends StatefulWidget {
 
 class _WebViewPageState extends State<WebViewPage> {
   final GlobalKey webViewKey = GlobalKey();
-  bool _isLoading = true;
 
   InAppWebViewController? webViewController;
   InAppWebViewSettings settings = InAppWebViewSettings(
@@ -68,67 +67,24 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            InAppWebView(
-              key: webViewKey,
-              initialUrlRequest: URLRequest(
-                url: WebUri("https://finance-flame-delta.vercel.app"),
-              ),
-              initialSettings: settings,
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-              },
-              onLoadStart: (controller, url) {
-                setState(() {
-                  _isLoading = true;
-                });
-              },
-              onPermissionRequest: (controller, request) async {
-                return PermissionResponse(
-                  resources: request.resources,
-                  action: PermissionResponseAction.GRANT,
-                );
-              },
-              onLoadStop: (controller, url) async {
-                setState(() {
-                  _isLoading = false;
-                });
-              },
-              onReceivedError: (controller, request, error) {
-                setState(() {
-                  _isLoading = false;
-                });
-              },
-              onConsoleMessage: (controller, consoleMessage) {
-                debugPrint(consoleMessage.message);
-              },
-            ),
-            if (_isLoading)
-              Container(
-                color: Theme.of(context).colorScheme.surface,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/ic_launcher.png',
-                        width: 120,
-                        height: 120,
-                      ),
-                      const SizedBox(height: 24),
-                      const SizedBox(
-                        width: 40,
-                        child: LinearProgressIndicator(
-                          color: Color(0xFF84A98C),
-                          backgroundColor: Color(0xFFE9ECEF),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-          ],
+        child: InAppWebView(
+          key: webViewKey,
+          initialUrlRequest: URLRequest(
+            url: WebUri("https://finance-flame-delta.vercel.app"),
+          ),
+          initialSettings: settings,
+          onWebViewCreated: (controller) {
+            webViewController = controller;
+          },
+          onPermissionRequest: (controller, request) async {
+            return PermissionResponse(
+              resources: request.resources,
+              action: PermissionResponseAction.GRANT,
+            );
+          },
+          onConsoleMessage: (controller, consoleMessage) {
+            debugPrint(consoleMessage.message);
+          },
         ),
       ),
     );
