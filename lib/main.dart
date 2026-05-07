@@ -5,7 +5,17 @@ import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+
   await [
     Permission.camera,
     Permission.storage,
@@ -75,36 +85,34 @@ class _WebViewPageState extends State<WebViewPage> {
             source: "window.dispatchEvent(new Event('flutterBackButtonPressed'));",
           );
         },
-        child: SafeArea(
-          child: InAppWebView(
-            key: webViewKey,
-            initialUrlRequest: URLRequest(
-              url: WebUri("https://finance-flame-delta.vercel.app"),
-            ),
-            initialSettings: settings,
-            onWebViewCreated: (controller) {
-              webViewController = controller;
-              controller.addJavaScriptHandler(
-                handlerName: 'onBackConfirmed',
-                callback: (args) async {
-                  if (await controller.canGoBack()) {
-                    await controller.goBack();
-                  } else {
-                    await SystemNavigator.pop();
-                  }
-                },
-              );
-            },
-            onPermissionRequest: (controller, request) async {
-              return PermissionResponse(
-                resources: request.resources,
-                action: PermissionResponseAction.GRANT,
-              );
-            },
-            onConsoleMessage: (controller, consoleMessage) {
-              debugPrint(consoleMessage.message);
-            },
+        child: InAppWebView(
+          key: webViewKey,
+          initialUrlRequest: URLRequest(
+            url: WebUri("https://finance-flame-delta.vercel.app"),
           ),
+          initialSettings: settings,
+          onWebViewCreated: (controller) {
+            webViewController = controller;
+            controller.addJavaScriptHandler(
+              handlerName: 'onBackConfirmed',
+              callback: (args) async {
+                if (await controller.canGoBack()) {
+                  await controller.goBack();
+                } else {
+                  await SystemNavigator.pop();
+                }
+              },
+            );
+          },
+          onPermissionRequest: (controller, request) async {
+            return PermissionResponse(
+              resources: request.resources,
+              action: PermissionResponseAction.GRANT,
+            );
+          },
+          onConsoleMessage: (controller, consoleMessage) {
+            debugPrint(consoleMessage.message);
+          },
         ),
       ),
     );
