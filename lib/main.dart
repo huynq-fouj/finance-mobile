@@ -112,7 +112,7 @@ class _WebViewPageState extends State<WebViewPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/ic_launcher.png',
                         width: 120,
                         height: 120,
                       ),
