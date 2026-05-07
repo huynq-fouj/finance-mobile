@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -66,25 +67,44 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: InAppWebView(
-          key: webViewKey,
-          initialUrlRequest: URLRequest(
-            url: WebUri("https://finance-flame-delta.vercel.app"),
+      body: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
+          await webViewController?.evaluateJavascript(
+            source: "window.dispatchEvent(new Event('flutterBackButtonPressed'));",
+          );
+        },
+        child: SafeArea(
+          child: InAppWebView(
+            key: webViewKey,
+            initialUrlRequest: URLRequest(
+              url: WebUri("https://finance-flame-delta.vercel.app"),
+            ),
+            initialSettings: settings,
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+              controller.addJavaScriptHandler(
+                handlerName: 'onBackConfirmed',
+                callback: (args) async {
+                  if (await controller.canGoBack()) {
+                    await controller.goBack();
+                  } else {
+                    await SystemNavigator.pop();
+                  }
+                },
+              );
+            },
+            onPermissionRequest: (controller, request) async {
+              return PermissionResponse(
+                resources: request.resources,
+                action: PermissionResponseAction.GRANT,
+              );
+            },
+            onConsoleMessage: (controller, consoleMessage) {
+              debugPrint(consoleMessage.message);
+            },
           ),
-          initialSettings: settings,
-          onWebViewCreated: (controller) {
-            webViewController = controller;
-          },
-          onPermissionRequest: (controller, request) async {
-            return PermissionResponse(
-              resources: request.resources,
-              action: PermissionResponseAction.GRANT,
-            );
-          },
-          onConsoleMessage: (controller, consoleMessage) {
-            debugPrint(consoleMessage.message);
-          },
         ),
       ),
     );
