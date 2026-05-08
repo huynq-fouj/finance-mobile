@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFF84A98C),
           primary: const Color(0xFF84A98C),
           brightness: Brightness.dark,
-          surface: const Color(0xFF2F3E46),
+          surface: const Color(0x92F5F5F5),
         ),
         useMaterial3: true,
       ),
@@ -82,7 +82,8 @@ class _WebViewPageState extends State<WebViewPage> {
         onPopInvokedWithResult: (didPop, result) async {
           if (didPop) return;
           await webViewController?.evaluateJavascript(
-            source: "window.dispatchEvent(new Event('flutterBackButtonPressed'));",
+            source:
+                "window.dispatchEvent(new Event('flutterBackButtonPressed'));",
           );
         },
         child: InAppWebView(
@@ -118,4 +119,3 @@ class _WebViewPageState extends State<WebViewPage> {
     );
   }
 }
-
