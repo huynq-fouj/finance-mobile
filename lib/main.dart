@@ -72,11 +72,13 @@ class _WebViewPageState extends State<WebViewPage> {
     mediaPlaybackRequiresUserGesture: false,
     allowsInlineMediaPlayback: true,
     iframeAllow: "camera; microphone; playing; fullscreen",
+    useHybridComposition: true,
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PopScope(
         canPop: false,
         onPopInvokedWithResult: (didPop, result) async {

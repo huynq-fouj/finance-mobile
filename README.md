@@ -6,7 +6,7 @@ A minimalist and premium finance tracking application built with Flutter.
 
 You can download the latest version of Aura Finance for Android here:
 
-[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://drive.google.com/file/d/1XjrSKpa4Vk7zBbtBaoDBwNiCKL21gJ25/view?usp=drive_link)
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://drive.google.com/file/d/1ajOMux6F-wNBdvHFHyLqpDEsEd-Bfle5/view?usp=drive_link)
 
 ---
 
